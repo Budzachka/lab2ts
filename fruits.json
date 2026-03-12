@@ -1,0 +1,33 @@
+{
+  "categoryName": "Fruits",
+  "items": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "shortname": "apple",
+      "description": "Свіжі червоні яблука з приємним солодким смаком.",
+      "price": "$1.20"
+    },
+    {
+      "id": 2,
+      "name": "Banana",
+      "shortname": "banana",
+      "description": "Стиглі банани, багаті на калій та корисні мікроелементи.",
+      "price": "$1.50"
+    },
+    {
+      "id": 3,
+      "name": "Orange",
+      "shortname": "orange",
+      "description": "Соковиті апельсини з високим вмістом вітаміну C.",
+      "price": "$1.80"
+    },
+    {
+      "id": 4,
+      "name": "Pear",
+      "shortname": "pear",
+      "description": "М’які груші з ніжною текстурою та солодким ароматом.",
+      "price": "$1.60"
+    }
+  ]
+}

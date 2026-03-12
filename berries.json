@@ -1,0 +1,33 @@
+{
+  "categoryName": "Berries",
+  "items": [
+    {
+      "id": 1,
+      "name": "Strawberry",
+      "shortname": "strawberry",
+      "description": "Ароматна полуниця з насиченим солодким смаком.",
+      "price": "$2.20"
+    },
+    {
+      "id": 2,
+      "name": "Raspberry",
+      "shortname": "raspberry",
+      "description": "Ніжна малина, яка чудово підходить до десертів.",
+      "price": "$2.50"
+    },
+    {
+      "id": 3,
+      "name": "Blueberry",
+      "shortname": "blueberry",
+      "description": "Корисна чорниця з м’яким і приємним смаком.",
+      "price": "$2.80"
+    },
+    {
+      "id": 4,
+      "name": "Blackberry",
+      "shortname": "blackberry",
+      "description": "Соковита ожина з легкою кислинкою.",
+      "price": "$2.60"
+    }
+  ]
+}

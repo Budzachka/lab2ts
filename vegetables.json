@@ -1,0 +1,33 @@
+{
+  "categoryName": "Vegetables",
+  "items": [
+    {
+      "id": 1,
+      "name": "Tomato",
+      "shortname": "tomato",
+      "description": "Стиглі помідори для салатів, закусок і гарячих страв.",
+      "price": "$1.10"
+    },
+    {
+      "id": 2,
+      "name": "Cucumber",
+      "shortname": "cucumber",
+      "description": "Хрусткі огірки з освіжаючим смаком.",
+      "price": "$0.95"
+    },
+    {
+      "id": 3,
+      "name": "Carrot",
+      "shortname": "carrot",
+      "description": "Солодка морква, багата на вітаміни та корисні речовини.",
+      "price": "$0.85"
+    },
+    {
+      "id": 4,
+      "name": "Pepper",
+      "shortname": "pepper",
+      "description": "Яскравий солодкий перець для різноманітних страв.",
+      "price": "$1.40"
+    }
+  ]
+}
