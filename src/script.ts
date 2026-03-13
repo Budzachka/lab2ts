@@ -18,6 +18,10 @@ interface CategoryData {
   items: Product[];
 }
 
+interface SpecialProduct extends Product {
+  categoryName: string;
+}
+
 const app = document.getElementById("app") as HTMLElement;
 const homeLink = document.getElementById("home-link") as HTMLAnchorElement;
 const catalogLink = document.getElementById("catalog-link") as HTMLAnchorElement;
@@ -35,6 +39,11 @@ async function fetchJSON<T>(url: string): Promise<T> {
 function getProductImageUrl(productName: string): string {
   const encodedName: string = encodeURIComponent(productName);
   return `https://placehold.co/200x200?text=${encodedName}`;
+}
+
+function getRandomItems<T>(items: T[], count: number): T[] {
+  const shuffled: T[] = [...items].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
 }
 
 function renderHome(): void {
@@ -97,7 +106,7 @@ async function loadCatalog(): Promise<void> {
 
     const specialsButton = document.getElementById("specials-btn") as HTMLButtonElement;
     specialsButton.addEventListener("click", async () => {
-      await loadRandomCategory(categories);
+      await loadSpecials(categories);
     });
   } catch (error) {
     renderError((error as Error).message);
@@ -142,16 +151,68 @@ async function loadCategory(shortname: string): Promise<void> {
   }
 }
 
-async function loadRandomCategory(categories: Category[]): Promise<void> {
-  if (categories.length === 0) {
-    renderError("Список категорій порожній.");
-    return;
+async function loadSpecials(categories: Category[]): Promise<void> {
+  try {
+    const specials: SpecialProduct[] = [];
+
+    for (const category of categories) {
+      const categoryData: CategoryData = await fetchJSON<CategoryData>(`./data/${category.shortname}.json`);
+
+      if (categoryData.items.length > 0) {
+        const randomProducts: Product[] = getRandomItems(categoryData.items, 2);
+
+        randomProducts.forEach((product: Product) => {
+          specials.push({
+            ...product,
+            categoryName: categoryData.categoryName
+          });
+        });
+      }
+    }
+
+    if (specials.length === 0) {
+      renderError("Не вдалося сформувати список Specials.");
+      return;
+    }
+
+    const shuffledSpecials: SpecialProduct[] = getRandomItems(specials, specials.length);
+
+    const productsHtml: string = shuffledSpecials
+      .map((product: SpecialProduct) => {
+        const imageUrl: string = getProductImageUrl(product.name);
+
+        return `
+          <div class="product-card">
+            <img src="${imageUrl}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p><strong>Категорія:</strong> ${product.categoryName}</p>
+            <p>${product.description}</p>
+            <div class="product-price">${product.price}</div>
+          </div>
+        `;
+      })
+      .join("");
+
+    app.innerHTML = `
+      <div class="actions">
+        <button class="back-btn" id="back-to-catalog">← Назад до каталогу</button>
+      </div>
+      <h1 class="page-title">Specials</h1>
+      <p class="page-subtitle">
+        Тут відображаються випадкові товари з різних категорій.
+      </p>
+      <div class="products-grid">
+        ${productsHtml}
+      </div>
+    `;
+
+    const backButton = document.getElementById("back-to-catalog") as HTMLButtonElement;
+    backButton.addEventListener("click", async () => {
+      await loadCatalog();
+    });
+  } catch (error) {
+    renderError((error as Error).message);
   }
-
-  const randomIndex: number = Math.floor(Math.random() * categories.length);
-  const randomCategory: Category = categories[randomIndex];
-
-  await loadCategory(randomCategory.shortname);
 }
 
 function initNavigation(): void {
